@@ -20,7 +20,7 @@ Aplicación de escritorio en C# para generar reportes de asistencia en congresos
 
 La carpeta [`DOCUMENTACION`](DOCUMENTACION) incluye:
 
-- [`DOCUMENTO de los reportes.docx`](DOCUMENTACION/DOCUMENTO%20de%20los%20pasos.docx): guía con imágenes explicando los pasos
+- [`DOCUMENTACION/DOCUMENTO de los reportes.docx`](DOCUMENTACION/DOCUMENTO%20de%20los%20pasos.docx): guía con imágenes explicando los pasos
 - [`script en texto.txt`](DOCUMENTACION/base%20de%20datos.txt): estructura de la base de datos usada en el proyecto
 ## Autor
 
