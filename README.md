@@ -18,10 +18,10 @@ Aplicación de escritorio en C# para generar reportes de asistencia en congresos
 
 ## Documentación
 
-Consulta la carpeta `DOCUMENTACION` para ver:
-- Un archivo Word con imágenes explicando los pasos
-- Un archivo de texto con la estructura de la base de datos
+La carpeta [`DOCUMENTACION`](DOCUMENTACION) incluye:
 
+- [`DOCUMENTO de los pasos.docx`](DOCUMENTACION/DOCUMENTO%20de%20los%20pasos.docx): guía con imágenes explicando los pasos
+- [`base de datos.txt`](DOCUMENTACION/base%20de%20datos.txt): estructura de la base de datos usada en el proyecto
 ## Autor
 
 Randy Pérez
