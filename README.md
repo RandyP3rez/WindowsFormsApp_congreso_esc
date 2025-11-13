@@ -1,8 +1,27 @@
+# WindowsFormsApp_congreso_esc
+
+Aplicación de escritorio en C# para generar reportes de asistencia en congresos académicos.
+
+## Funcionalidades
+
+- Reporte de número de asistencias
+- Reporte por jornada y semestre
+- Reporte por día
+- Reporte detallado por día
+
+## Tecnologías
+
+- Windows Forms
+- RDLC ReportViewer
+- SQL Server
+- Visual Studio
+
 ## Documentación
 
-La carpeta `DOCUMENTACION` incluye:
-
-- Un archivo Word con imágenes explicando los pasos de instalación y uso
+Consulta la carpeta `DOCUMENTACION` para ver:
+- Un archivo Word con imágenes explicando los pasos
 - Un archivo de texto con la estructura de la base de datos
 
-Puedes consultarlos directamente en el repositorio para entender el funcionamiento del sistema.
+## Autor
+
+Randy Pérez
