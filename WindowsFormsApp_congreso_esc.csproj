@@ -127,6 +127,7 @@
     <EmbeddedResource Include="ReporteAsistencias.rdlc" />
     <EmbeddedResource Include="ReporteAsistenciaPorDia.rdlc" />
     <EmbeddedResource Include="ReporteSemestreJornada.rdlc" />
+    <None Include="DOCUMENTACION\DOCUMENTO de los reportes.docx" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\AlumnoAsistencia.datasource" />
     <None Include="Properties\DataSources\AlumnoAsistenciaDetallada.datasource" />
@@ -146,6 +147,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DOCUMENTACION\script en texto.txt" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

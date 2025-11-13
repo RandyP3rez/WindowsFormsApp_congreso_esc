@@ -1,0 +1,648 @@
+/*
+Created		26/06/2025
+Modified		24/07/2025
+Project		
+Model		
+Company		
+Author		
+Version		
+Database		MS SQL 7 
+*/
+
+
+Create table [Ciclo] (
+	[Código_Ciclo] Integer NOT NULL,
+	[Anio] Integer NOT NULL,
+Primary Key  ([Código_Ciclo])
+) 
+go
+
+Create table [Carrera] (
+	[Código_Carrera] Nvarchar(10) NOT NULL,
+	[Nombre_Carrera] Nvarchar(100) NOT NULL,
+	[Código_Facultad] Nvarchar(10) NOT NULL,
+Primary Key  ([Código_Carrera])
+) 
+go
+
+Create table [Facultad] (
+	[Código_Facultad] Nvarchar(10) NOT NULL,
+	[Nombre_Facultad] Nvarchar(100) NOT NULL,
+Primary Key  ([Código_Facultad])
+) 
+go
+
+Create table [Semestre] (
+	[Código_Semestre] Nvarchar(10) NOT NULL,
+	[Nombre_Semestre] Nvarchar(100) NOT NULL,
+	[Estado_Semestre] Bit NOT NULL,
+Primary Key  ([Código_Semestre])
+) 
+go
+
+Create table [Persona] (
+	[Código_Persona] Nvarchar(25) NOT NULL,
+	[Código_Rol] Integer NOT NULL,
+	[Codigo_ticket] Nvarchar(8) NOT NULL,
+	[Código_Carrera] Nvarchar(10) NOT NULL,
+	[Carnet_Persona] Nvarchar(10) NULL,
+	[Nombres_Persona] Nvarchar(100) NOT NULL,
+	[Apellidos_Persona] Nvarchar(100) NOT NULL,
+	[Usuario_Persona] Nvarchar(15) NOT NULL,
+	[Password_Persona] Nvarchar(15) NOT NULL,
+	[Correo_Persona] Nvarchar(40) NOT NULL,
+Primary Key  ([Código_Persona])
+) 
+go
+
+Create table [Rol] (
+	[Código_Rol] Integer NOT NULL,
+	[Nombre_Rol] Nvarchar(50) NOT NULL,
+Primary Key  ([Código_Rol])
+) 
+go
+
+Create table [Abreviatura] (
+	[Código_Abreviatura] Integer NOT NULL,
+	[Abreviatura] Nvarchar(20) NOT NULL,
+Primary Key  ([Código_Abreviatura])
+) 
+go
+
+Create table [Congresista] (
+	[Código_Congresista] Nvarchar(15) NOT NULL,
+	[Código_Abreviatura] Integer NOT NULL,
+	[Nombres_Congresista] Nvarchar(100) NOT NULL,
+	[Apellidos_Congresista] Nvarchar(100) NOT NULL,
+	[Foto_Congresista] Image NOT NULL,
+Primary Key  ([Código_Congresista])
+) 
+go
+
+Create table [Congreso] (
+	[Código_Congreso] Nvarchar(10) NOT NULL,
+	[Codigo_TipoCongreso] Nvarchar(20) NOT NULL,
+	[Fecha_Congreso] Datetime NOT NULL,
+	[Descripción_Congreso] Nvarchar(500) NOT NULL,
+	[Lugar_Congreso] Nvarchar(300) NOT NULL,
+	[Logo_Congreso] Image NOT NULL,
+	[Estado_Congreso] Bit NOT NULL,
+	[Código_Ciclo] Integer NOT NULL,
+Primary Key  ([Código_Congreso])
+) 
+go
+
+Create table [Exposición] (
+	[Código_Exposición] Nvarchar(25) NOT NULL,
+	[Código_Congresista] Nvarchar(15) NOT NULL,
+	[Código_Congreso] Nvarchar(10) NOT NULL,
+	[Nombre_Exposición] Nvarchar(50) NOT NULL,
+	[Fecha_Exposición] Datetime NOT NULL,
+	[Sala_Exposicion] Nvarchar(30) NOT NULL,
+	[Estado_Exposición] Bit NOT NULL,
+Primary Key  ([Código_Exposición])
+) 
+go
+
+Create table [Asistencia] (
+	[Código_Asistencia] Nvarchar(25) NOT NULL,
+	[Código_Exposición] Nvarchar(25) NOT NULL,
+	[Código_Persona] Nvarchar(25) NOT NULL,
+	[Estado_Asistencia] Bit NOT NULL,
+	[Hora_Asistencia] Timestamp NULL,
+Primary Key  ([Código_Asistencia])
+) 
+go
+
+Create table [Jornada] (
+	[Código_Jornada] Nvarchar(10) NOT NULL,
+	[Nombre_Jornada] Nvarchar(100) NOT NULL,
+Primary Key  ([Código_Jornada])
+) 
+go
+
+Create table [Ticket] (
+	[Codigo_ticket] Nvarchar(8) NOT NULL,
+	[Ticket] Nvarchar(20) NOT NULL,
+	[Estado_Ticket] Bit NOT NULL,
+	[Fecha_Venta] Datetime NULL,
+Primary Key  ([Codigo_ticket])
+) 
+go
+
+Create table [AsignacionCurso] (
+	[Codigo_Asignacion] Char(10) NOT NULL,
+	[Código_Persona] Nvarchar(25) NOT NULL,
+	[Codigo_DetallePensum] Nvarchar(20) NOT NULL,
+	[Código_Ciclo] Integer NOT NULL,
+Primary Key  ([Codigo_Asignacion])
+) 
+go
+
+Create table [DetallePensum] (
+	[Codigo_DetallePensum] Nvarchar(20) NOT NULL,
+	[Codigo_Pensum] Nvarchar(20) NOT NULL,
+	[Codigo_Curso] Nvarchar(20) NOT NULL,
+Primary Key  ([Codigo_DetallePensum])
+) 
+go
+
+Create table [TipoCongreso] (
+	[Codigo_TipoCongreso] Nvarchar(20) NOT NULL,
+	[Nombre_Congreso] Nvarchar(30) NOT NULL,
+Primary Key  ([Codigo_TipoCongreso])
+) 
+go
+
+Create table [Pensum] (
+	[Codigo_Pensum] Nvarchar(20) NOT NULL,
+	[Código_Carrera] Nvarchar(10) NOT NULL,
+	[Código_Jornada] Nvarchar(10) NOT NULL,
+	[Código_Semestre] Nvarchar(10) NOT NULL,
+	[Nombre_Pensum] Nvarchar(20) NOT NULL,
+	[Estado_Pensum] Bit NOT NULL,
+Primary Key  ([Codigo_Pensum])
+) 
+go
+
+Create table [Curso] (
+	[Codigo_Curso] Nvarchar(20) NOT NULL,
+	[Nombre_Curso] Nvarchar(30) NOT NULL,
+	[Estado_Curso] Bit NOT NULL,
+Primary Key  ([Codigo_Curso])
+) 
+go
+
+
+Set quoted_identifier on
+go
+
+Set quoted_identifier off
+go
+-- ========================
+--  FACULTADES
+-- ========================
+INSERT INTO Facultad (Código_Facultad, Nombre_Facultad) VALUES
+('F001', 'Facultad de Ingeniería'),
+('F002', 'Facultad de Ciencias Económicas');
+-- ========================
+--  CARRERAS
+-- Cada carrera se relaciona con una facultad
+-- ========================
+INSERT INTO Carrera (Código_Carrera, Nombre_Carrera, Código_Facultad) VALUES
+
+('C001', 'Ingeniería en Sistemas', 'F001'),
+('C002', 'Ingeniería Electrónica', 'F001'),
+('C003', 'Ingeniería en Telecomunicaciones', 'F001'),
+('C004', 'Ingeniería Industrial', 'F001'),
+('C005', 'Administración de Empresas', 'F002');
+-- ========================
+--  JORNADAS
+-- ========================
+INSERT INTO Jornada VALUES
+('J01', 'Jornada Matutina'),
+('J02', 'Jornada Vespertina'),
+('J03', 'Jornada Fin_de_semana');
+-- ========================
+--  SEMESTRES
+-- ========================
+INSERT INTO Semestre (Código_Semestre, Nombre_Semestre, Estado_Semestre) VALUES
+
+('S2024', 'Semestre 2024', 1),
+('S2025', 'Semestre 2025', 1);
+
+-- ========================
+--  CICLOS ACADÉMICOS
+-- ========================
+INSERT INTO Ciclo (Código_Ciclo, Anio) VALUES
+
+(202401, 2024),
+(202501, 2025);
+-- ========================
+--  ROLES DE PERSONA
+-- ========================
+INSERT INTO Rol (Código_Rol, Nombre_Rol) VALUES
+(1, 'Estudiante'),
+(2, 'Docente');
+
+-- ========================
+-- PENSUM
+-- Relaciona carrera, jornada, semestre
+-- ========================
+INSERT INTO Pensum (Codigo_Pensum, Código_Carrera, Código_Jornada, Código_Semestre, Nombre_Pensum, Estado_Pensum) VALUES
+
+('PEN001', 'C001', 'J01', 'S2024', 'Pensum Sistemas 2024', 1),
+('PEN002', 'C002', 'J01', 'S2024', 'Pensum Electrónica 2024', 1),
+('PEN003', 'C003', 'J01', 'S2024', 'Pensum Telecom 2024', 1),
+('PEN004', 'C004', 'J01', 'S2024', 'Pensum Industrial 2024', 1),
+('PEN005', 'C005', 'J01', 'S2024', 'Pensum Administración 2024', 1);
+-- ========================
+--  CURSOS
+-- ========================
+INSERT INTO Curso (Codigo_Curso, Nombre_Curso, Estado_Curso) VALUES
+
+('CURS001', 'Algoritmos', 1),
+('CURS002', 'Contabilidad', 1),
+('CURS003', 'Electrónica Básica', 1),
+('CURS004', 'Procesos Industriales', 1),
+('CURS005', 'Marketing I', 1),
+('CURS006', 'Bases de Datos', 1),
+('CURS007', 'Redes I', 1),
+('CURS008', 'Gestión Empresarial', 1),
+('CURS009', 'Programación Estructurada', 1),
+('CURS010', 'Telecomunicaciones I', 1);
+-- ========================
+--  DETALLE PENSUM
+-- Relaciona pensum con cursos
+-- ========================
+INSERT INTO DetallePensum (Codigo_DetallePensum, Codigo_Pensum, Codigo_Curso) VALUES
+
+('DP001', 'PEN001', 'CURS001'),
+('DP002', 'PEN001', 'CURS006'),
+('DP003', 'PEN002', 'CURS003'),
+('DP004', 'PEN002', 'CURS009'),
+('DP005', 'PEN003', 'CURS010'),
+('DP006', 'PEN003', 'CURS007'),
+('DP007', 'PEN004', 'CURS004'),
+('DP008', 'PEN004', 'CURS008'),
+('DP009', 'PEN005', 'CURS005'),
+('DP010', 'PEN005', 'CURS002');
+-- ========================
+--  TICKETS
+-- ========================
+INSERT INTO Ticket (Codigo_ticket, Ticket, Estado_Ticket, Fecha_Venta) VALUES
+('TK001', 'TK-2024-001', 1, GETDATE()),
+('TK002', 'TK-2024-002', 1, GETDATE()),
+('TK003', 'TK-2024-003', 0, NULL);
+
+-- ========================
+--  PERSONAS
+-- ========================
+INSERT INTO Persona (
+    Código_Persona, Código_Rol, Codigo_ticket, Código_Carrera,
+    Carnet_Persona, Nombres_Persona, Apellidos_Persona,
+    Usuario_Persona, Password_Persona, Correo_Persona
+	--sistemas
+) VALUES
+('A001', 1, 'T001', 'C001', '2024IS001', 'Luis', 'García', 'lgarcia', 'pwd001', 'luis.garcia@alumnos.edu.gt'),
+('A002', 1, 'T002', 'C001', '2024IS002', 'Ana', 'Pérez', 'aperez', 'pwd002', 'ana.perez@alumnos.edu.gt'),
+('A003', 1, 'T003', 'C001', '2024IS003', 'Carlos', 'Ramírez', 'cramirez', 'pwd003', 'carlos.ramirez@alumnos.edu.gt'),
+('A004', 1, 'T004', 'C001', '2024IS004', 'María', 'López', 'mlopez', 'pwd004', 'maria.lopez@alumnos.edu.gt'),
+('A005', 1, 'T005', 'C001', '2024IS005', 'José', 'Hernández', 'jhernandez', 'pwd005', 'jose.hernandez@alumnos.edu.gt'),
+('A006', 1, 'T006', 'C001', '2024IS006', 'Claudia', 'Núñez', 'cnunez', 'pwd006', 'claudia.nunez@alumnos.edu.gt'),
+('A007', 1, 'T007', 'C001', '2024IS007', 'Javier', 'Guzmán', 'jguzman', 'pwd007', 'javier.guzman@alumnos.edu.gt'),
+('A008', 1, 'T008', 'C001', '2024IS008', 'Diana', 'Morales', 'dmorales', 'pwd008', 'diana.morales@alumnos.edu.gt'),
+('A009', 1, 'T009', 'C001', '2024IS009', 'Tomás', 'Rosales', 'trosales', 'pwd009', 'tomas.rosales@alumnos.edu.gt'),
+('A010', 1, 'T010', 'C001', '2024IS010', 'Sandra', 'Mendoza', 'smendoza', 'pwd010', 'sandra.mendoza@alumnos.edu.gt'),
+('A011', 1, 'T011', 'C001', '2024IS011', 'Esteban', 'Juárez', 'ejuarez', 'pwd011', 'esteban.juarez@alumnos.edu.gt'),
+('A012', 1, 'T012', 'C001', '2024IS012', 'Gabriela', 'Fuentes', 'gfuentes', 'pwd012', 'gabriela.fuentes@alumnos.edu.gt'),
+('A013', 1, 'T013', 'C001', '2024IS013', 'Manuel', 'Escobar', 'mescobar', 'pwd013', 'manuel.escobar@alumnos.edu.gt'),
+('A014', 1, 'T014', 'C001', '2024IS014', 'Julieta', 'Ramírez', 'jramirez', 'pwd014', 'julieta.ramirez@alumnos.edu.gt'),
+('A015', 1, 'T015', 'C001', '2024IS015', 'Iván', 'Reyes', 'ireyes', 'pwd015', 'ivan.reyes@alumnos.edu.gt'),
+('A016', 1, 'T016', 'C001', '2024IS016', 'Verónica', 'Luna', 'vluna', 'pwd016', 'veronica.luna@alumnos.edu.gt'),
+('A017', 1, 'T017', 'C001', '2024IS017', 'Sebastián', 'Cordero', 'scordero', 'pwd017', 'sebastian.cordero@alumnos.edu.gt'),
+('A018', 1, 'T018', 'C001', '2024IS018', 'Karla', 'Salazar', 'ksalazar', 'pwd018', 'karla.salazar@alumnos.edu.gt'),
+('A019', 1, 'T019', 'C001', '2024IS019', 'Andrés', 'López', 'alopez', 'pwd019', 'andres.lopez@alumnos.edu.gt'),
+('A020', 1, 'T020', 'C001', '2024IS020', 'Natalia', 'Martínez', 'nmartinez', 'pwd020', 'natalia.martinez@alumnos.edu.gt');
+INSERT INTO Persona (
+    Código_Persona, Código_Rol, Codigo_ticket, Código_Carrera,
+    Carnet_Persona, Nombres_Persona, Apellidos_Persona,
+    Usuario_Persona, Password_Persona, Correo_Persona
+) VALUES
+('A021', 1, 'T021', 'C001', '2024IS021', 'Diego', 'Cárdenas', 'dcardenas', 'pwd021', 'diego.cardenas@alumnos.edu.gt'),
+('A022', 1, 'T022', 'C001', '2024IS022', 'Lucía', 'Ortíz', 'lortiz', 'pwd022', 'lucia.ortiz@alumnos.edu.gt'),
+('A023', 1, 'T023', 'C001', '2024IS023', 'Mario', 'Delgado', 'mdelgado', 'pwd023', 'mario.delgado@alumnos.edu.gt'),
+('A024', 1, 'T024', 'C001', '2024IS024', 'Daniela', 'Cruz', 'dcruz', 'pwd024', 'daniela.cruz@alumnos.edu.gt'),
+('A025', 1, 'T025', 'C001', '2024IS025', 'Ricardo', 'Molina', 'rmolina', 'pwd025', 'ricardo.molina@alumnos.edu.gt'),
+('A026', 1, 'T026', 'C001', '2024IS026', 'Melissa', 'Carrillo', 'mcarrillo', 'pwd026', 'melissa.carrillo@alumnos.edu.gt'),
+('A027', 1, 'T027', 'C001', '2024IS027', 'Pablo', 'Romero', 'promero', 'pwd027', 'pablo.romero@alumnos.edu.gt'),
+('A028', 1, 'T028', 'C001', '2024IS028', 'Andrea', 'Santos', 'asantos', 'pwd028', 'andrea.santos@alumnos.edu.gt'),
+('A029', 1, 'T029', 'C001', '2024IS029', 'Eduardo', 'Barrios', 'ebarrios', 'pwd029', 'eduardo.barrios@alumnos.edu.gt'),
+('A030', 1, 'T030', 'C001', '2024IS030', 'Jimena', 'Velásquez', 'jvelasquez', 'pwd030', 'jimena.velasquez@alumnos.edu.gt'),
+('A031', 1, 'T031', 'C001', '2024IS031', 'Felipe', 'Navarro', 'fnavarro', 'pwd031', 'felipe.navarro@alumnos.edu.gt'),
+('A032', 1, 'T032', 'C001', '2024IS032', 'Rosa', 'Castillo', 'rcastillo', 'pwd032', 'rosa.castillo@alumnos.edu.gt'),
+('A033', 1, 'T033', 'C001', '2024IS033', 'Gerardo', 'Flores', 'gflores', 'pwd033', 'gerardo.flores@alumnos.edu.gt'),
+('A034', 1, 'T034', 'C001', '2024IS034', 'Miriam', 'Torres', 'mtorres', 'pwd034', 'miriam.torres@alumnos.edu.gt'),
+('A035', 1, 'T035', 'C001', '2024IS035', 'Óscar', 'Lemus', 'olemus', 'pwd035', 'oscar.lemus@alumnos.edu.gt'),
+('A036', 1, 'T036', 'C001', '2024IS036', 'Patricia', 'Zamora', 'pzamora', 'pwd036', 'patricia.zamora@alumnos.edu.gt'),
+('A037', 1, 'T037', 'C001', '2024IS037', 'Kevin', 'Estrada', 'kestrada', 'pwd037', 'kevin.estrada@alumnos.edu.gt'),
+('A038', 1, 'T038', 'C001', '2024IS038', 'Alejandra', 'Méndez', 'amendez', 'pwd038', 'alejandra.mendez@alumnos.edu.gt'),
+('A039', 1, 'T039', 'C001', '2024IS039', 'Roberto', 'Ruíz', 'rruiz', 'pwd039', 'roberto.ruiz@alumnos.edu.gt'),
+('A040', 1, 'T040', 'C001', '2024IS040', 'Ximena', 'López', 'xlopez', 'pwd040', 'ximena.lopez@alumnos.edu.gt'),
+('A041', 1, 'T041', 'C001', '2024IS041', 'Andrés', 'Cabrera', 'acabrera', 'pwd041', 'andres.cabrera@alumnos.edu.gt'),
+('A042', 1, 'T042', 'C001', '2024IS042', 'Beatriz', 'León', 'bleon', 'pwd042', 'beatriz.leon@alumnos.edu.gt'),
+('A043', 1, 'T043', 'C001', '2024IS043', 'Jorge', 'Salinas', 'jsalinas', 'pwd043', 'jorge.salinas@alumnos.edu.gt'),
+('A044', 1, 'T044', 'C001', '2024IS044', 'Carolina', 'Muñoz', 'cmunoz', 'pwd044', 'carolina.munoz@alumnos.edu.gt'),
+('A045', 1, 'T045', 'C001', '2024IS045', 'Emilio', 'Bautista', 'ebautista', 'pwd045', 'emilio.bautista@alumnos.edu.gt');
+INSERT INTO Persona (
+    Código_Persona, Código_Rol, Codigo_ticket, Código_Carrera,
+    Carnet_Persona, Nombres_Persona, Apellidos_Persona,
+    Usuario_Persona, Password_Persona, Correo_Persona
+) VALUES
+('A046', 1, 'T046', 'C001', '2024IS046', 'Isabel', 'Reyes', 'ireyes', 'pwd046', 'isabel.reyes@alumnos.edu.gt'),
+('A047', 1, 'T047', 'C001', '2024IS047', 'Raúl', 'Vargas', 'rvargas', 'pwd047', 'raul.vargas@alumnos.edu.gt'),
+('A048', 1, 'T048', 'C001', '2024IS048', 'Daniela', 'Ortega', 'dortega', 'pwd048', 'daniela.ortega@alumnos.edu.gt'),
+('A049', 1, 'T049', 'C001', '2024IS049', 'Francisco', 'Salazar', 'fsalazar', 'pwd049', 'francisco.salazar@alumnos.edu.gt'),
+--telecomunicaciones
+('A050', 1, 'T050', 'C003', '2024TC050', 'Joaquín', 'Rosales', 'jrosales', 'pwd050', 'joaquin.rosales@alumnos.edu.gt'),
+('A051', 1, 'T051', 'C003', '2024TC051', 'Carla', 'Herrera', 'cherrera', 'pwd051', 'carla.herrera@alumnos.edu.gt'),
+('A052', 1, 'T052', 'C003', '2024TC052', 'Marcelo', 'Vásquez', 'mvasquez', 'pwd052', 'marcelo.vasquez@alumnos.edu.gt'),
+('A053', 1, 'T053', 'C003', '2024TC053', 'Silvia', 'Escobar', 'sescobar', 'pwd053', 'silvia.escobar@alumnos.edu.gt'),
+('A054', 1, 'T054', 'C003', '2024TC054', 'Enrique', 'Delgado', 'edelgado', 'pwd054', 'enrique.delgado@alumnos.edu.gt'),
+('A055', 1, 'T055', 'C003', '2024TC055', 'Andrea', 'Palacios', 'apalacios', 'pwd055', 'andrea.palacios@alumnos.edu.gt'),
+('A056', 1, 'T056', 'C003', '2024TC056', 'Gustavo', 'Mejía', 'gmejia', 'pwd056', 'gustavo.mejia@alumnos.edu.gt'),
+('A057', 1, 'T057', 'C003', '2024TC057', 'Laura', 'Castillo', 'lcastillo', 'pwd057', 'laura.castillo@alumnos.edu.gt'),
+('A058', 1, 'T058', 'C003', '2024TC058', 'Oscar', 'Morales', 'omorales', 'pwd058', 'oscar.morales@alumnos.edu.gt'),
+('A059', 1, 'T059', 'C003', '2024TC059', 'Lucía', 'Santos', 'lsantos', 'pwd059', 'lucia.santos@alumnos.edu.gt'),
+('A060', 1, 'T060', 'C003', '2024TC060', 'Fernando', 'Pérez', 'fperez', 'pwd060', 'fernando.perez@alumnos.edu.gt'),
+('A061', 1, 'T061', 'C003', '2024TC061', 'Melissa', 'Ramírez', 'mramirez', 'pwd061', 'melissa.ramirez@alumnos.edu.gt'),
+('A062', 1, 'T062', 'C003', '2024TC062', 'Iván', 'Cabrera', 'icabrera', 'pwd062', 'ivan.cabrera@alumnos.edu.gt'),
+('A063', 1, 'T063', 'C003', '2024TC063', 'Ximena', 'Ruíz', 'xruiz', 'pwd063', 'ximena.ruiz@alumnos.edu.gt'),
+('A064', 1, 'T064', 'C003', '2024TC064', 'Bruno', 'Molina', 'bmolina', 'pwd064', 'bruno.molina@alumnos.edu.gt'),
+('A065', 1, 'T065', 'C003', '2024TC065', 'Valeria', 'Zamora', 'vzamora', 'pwd065', 'valeria.zamora@alumnos.edu.gt'),
+('A066', 1, 'T066', 'C003', '2024TC066', 'Ramón', 'Córdova', 'rcordova', 'pwd066', 'ramon.cordova@alumnos.edu.gt'),
+('A067', 1, 'T067', 'C003', '2024TC067', 'Karla', 'Navarro', 'knavarro', 'pwd067', 'karla.navarro@alumnos.edu.gt'),
+('A068', 1, 'T068', 'C003', '2024TC068', 'David', 'Sánchez', 'dsanchez', 'pwd068', 'david.sanchez@alumnos.edu.gt'),
+('A069', 1, 'T069', 'C003', '2024TC069', 'Lorena', 'Barrios', 'lbarrios', 'pwd069', 'lorena.barrios@alumnos.edu.gt'),
+('A070', 1, 'T070', 'C003', '2024TC070', 'Eduardo', 'Cruz', 'ecruz', 'pwd070', 'eduardo.cruz@alumnos.edu.gt');
+INSERT INTO Persona (
+    Código_Persona, Código_Rol, Codigo_ticket, Código_Carrera,
+    Carnet_Persona, Nombres_Persona, Apellidos_Persona,
+    Usuario_Persona, Password_Persona, Correo_Persona
+) VALUES
+--electronica
+-- Bloque A071 - A080
+('A071', 1, 'T071', 'C002', '2024EL071', 'Rafael', 'Campos', 'rcampos', 'pwd071', 'rafael.campos@alumnos.edu.gt'),
+('A072', 1, 'T072', 'C002', '2024EL072', 'Mariana', 'Villagómez', 'mvillagomez', 'pwd072', 'mariana.villagomez@alumnos.edu.gt'),
+('A073', 1, 'T073', 'C002', '2024EL073', 'Esteban', 'Paz', 'epaz', 'pwd073', 'esteban.paz@alumnos.edu.gt'),
+('A074', 1, 'T074', 'C002', '2024EL074', 'Diana', 'León', 'dleon', 'pwd074', 'diana.leon@alumnos.edu.gt'),
+('A075', 1, 'T075', 'C002', '2024EL075', 'René', 'Gallardo', 'rgallardo', 'pwd075', 'rene.gallardo@alumnos.edu.gt'),
+('A076', 1, 'T076', 'C002', '2024EL076', 'Paula', 'Méndez', 'pmendez', 'pwd076', 'paula.mendez@alumnos.edu.gt'),
+('A077', 1, 'T077', 'C002', '2024EL077', 'Javier', 'Ortega', 'jortega', 'pwd077', 'javier.ortega@alumnos.edu.gt'),
+('A078', 1, 'T078', 'C002', '2024EL078', 'Angélica', 'Gómez', 'agomez', 'pwd078', 'angelica.gomez@alumnos.edu.gt'),
+('A079', 1, 'T079', 'C002', '2024EL079', 'Mateo', 'Flores', 'mflores', 'pwd079', 'mateo.flores@alumnos.edu.gt'),
+('A080', 1, 'T080', 'C002', '2024EL080', 'Natalia', 'Suárez', 'nsuarez', 'pwd080', 'natalia.suarez@alumnos.edu.gt'),
+
+-- Bloque A081 - A090
+('A081', 1, 'T081', 'C002', '2024EL081', 'Luis', 'Alfaro', 'lalfaro', 'pwd081', 'luis.alfaro@alumnos.edu.gt'),
+('A082', 1, 'T082', 'C002', '2024EL082', 'Claudia', 'Martínez', 'cmartinez', 'pwd082', 'claudia.martinez@alumnos.edu.gt'),
+('A083', 1, 'T083', 'C002', '2024EL083', 'Ricardo', 'Cáceres', 'rcaceres', 'pwd083', 'ricardo.caceres@alumnos.edu.gt'),
+('A084', 1, 'T084', 'C002', '2024EL084', 'Vanessa', 'López', 'vlopez', 'pwd084', 'vanessa.lopez@alumnos.edu.gt'),
+('A085', 1, 'T085', 'C002', '2024EL085', 'Carlos', 'Reyes', 'creyes', 'pwd085', 'carlos.reyes@alumnos.edu.gt'),
+('A086', 1, 'T086', 'C002', '2024EL086', 'Andrea', 'Juárez', 'ajuarez', 'pwd086', 'andrea.juarez@alumnos.edu.gt'),
+('A087', 1, 'T087', 'C002', '2024EL087', 'Tomás', 'Morales', 'tmorales', 'pwd087', 'tomas.morales@alumnos.edu.gt'),
+('A088', 1, 'T088', 'C002', '2024EL088', 'Isabel', 'Cordero', 'icordero', 'pwd088', 'isabel.cordero@alumnos.edu.gt'),
+('A089', 1, 'T089', 'C002', '2024EL089', 'Felipe', 'Zambrano', 'fzambrano', 'pwd089', 'felipe.zambrano@alumnos.edu.gt'),
+('A090', 1, 'T090', 'C002', '2024EL090', 'Gabriela', 'Torres', 'gtorres', 'pwd090', 'gabriela.torres@alumnos.edu.gt'),
+
+-- Bloque A091 - A100
+('A091', 1, 'T091', 'C002', '2024EL091', 'Diego', 'Estrada', 'destrada', 'pwd091', 'diego.estrada@alumnos.edu.gt'),
+('A092', 1, 'T092', 'C002', '2024EL092', 'Monserrat', 'Ríos', 'mrios', 'pwd092', 'monserrat.rios@alumnos.edu.gt'),
+('A093', 1, 'T093', 'C002', '2024EL093', 'Emilio', 'Quiñónez', 'equinonez', 'pwd093', 'emilio.quinonez@alumnos.edu.gt'),
+('A094', 1, 'T094', 'C002', '2024EL094', 'Valentina', 'Corado', 'vcorado', 'pwd094', 'valentina.corado@alumnos.edu.gt'),
+('A095', 1, 'T095', 'C002', '2024EL095', 'Sebastián', 'Núñez', 'snunez', 'pwd095', 'sebastian.nunez@alumnos.edu.gt'),
+('A096', 1, 'T096', 'C002', '2024EL096', 'Jimena', 'Herrera', 'jherrera', 'pwd096', 'jimena.herrera@alumnos.edu.gt'),
+('A097', 1, 'T097', 'C002', '2024EL097', 'Brayan', 'Salazar', 'bsalazar', 'pwd097', 'brayan.salazar@alumnos.edu.gt'),
+('A098', 1, 'T098', 'C002', '2024EL098', 'Adriana', 'Peña', 'apena', 'pwd098', 'adriana.pena@alumnos.edu.gt'),
+('A099', 1, 'T099', 'C002', '2024EL099', 'Mario', 'Roldán', 'mroldan', 'pwd099', 'mario.roldan@alumnos.edu.gt'),
+('A100', 1, 'T100', 'C002', '2024EL100', 'Camila', 'Bermúdez', 'cbermudez', 'pwd100', 'camila.bermudez@alumnos.edu.gt');
+INSERT INTO Persona (
+    Código_Persona, Código_Rol, Codigo_ticket, Código_Carrera,
+    Carnet_Persona, Nombres_Persona, Apellidos_Persona,
+    Usuario_Persona, Password_Persona, Correo_Persona
+) VALUES
+-- A101 - A110 industral
+('A101', 1, 'T101', 'C001', '2024IN101', 'Leonardo', 'Pérez', 'lperez', 'pwd101', 'leonardo.perez@alumnos.edu.gt'),
+('A102', 1, 'T102', 'C001', '2024IN102', 'Sofía', 'Ruíz', 'sruiz', 'pwd102', 'sofia.ruiz@alumnos.edu.gt'),
+('A103', 1, 'T103', 'C001', '2024IN103', 'Gerardo', 'García', 'ggarcia', 'pwd103', 'gerardo.garcia@alumnos.edu.gt'),
+('A104', 1, 'T104', 'C001', '2024IN104', 'Valeria', 'Mejía', 'vmejia', 'pwd104', 'valeria.mejia@alumnos.edu.gt'),
+('A105', 1, 'T105', 'C001', '2024IN105', 'Samuel', 'Flores', 'sflores', 'pwd105', 'samuel.flores@alumnos.edu.gt'),
+('A106', 1, 'T106', 'C001', '2024IN106', 'Camila', 'Ortega', 'cortega', 'pwd106', 'camila.ortega@alumnos.edu.gt'),
+('A107', 1, 'T107', 'C001', '2024IN107', 'Cristóbal', 'Santos', 'csantos', 'pwd107', 'cristobal.santos@alumnos.edu.gt'),
+('A108', 1, 'T108', 'C001', '2024IN108', 'Daniela', 'Rosales', 'drosales', 'pwd108', 'daniela.rosales@alumnos.edu.gt'),
+('A109', 1, 'T109', 'C001', '2024IN109', 'Álvaro', 'López', 'alopez', 'pwd109', 'alvaro.lopez@alumnos.edu.gt'),
+('A110', 1, 'T110', 'C001', '2024IN110', 'Lucía', 'Ramírez', 'lramirez', 'pwd110', 'lucia.ramirez@alumnos.edu.gt'),
+
+('A111', 1, 'T111', 'C001', '2024IN111', 'Rebeca', 'López', 'rlopez', 'pwd111', 'rebeca.lopez@alumnos.edu.gt'),
+('A112', 1, 'T112', 'C001', '2024IN112', 'Mauricio', 'Torres', 'mtorres', 'pwd112', 'mauricio.torres@alumnos.edu.gt'),
+('A113', 1, 'T113', 'C001', '2024IN113', 'Carolina', 'Sosa', 'csosa', 'pwd113', 'carolina.sosa@alumnos.edu.gt'),
+('A114', 1, 'T114', 'C001', '2024IN114', 'Jorge', 'Ramírez', 'jramirez', 'pwd114', 'jorge.ramirez@alumnos.edu.gt'),
+('A115', 1, 'T115', 'C001', '2024IN115', 'Valentina', 'Campos', 'vcampos', 'pwd115', 'valentina.campos@alumnos.edu.gt'),
+('A116', 1, 'T116', 'C001', '2024IN116', 'Luis', 'González', 'lgonzalez', 'pwd116', 'luis.gonzalez@alumnos.edu.gt'),
+('A117', 1, 'T117', 'C001', '2024IN117', 'Mónica', 'Peralta', 'mperalta', 'pwd117', 'monica.peralta@alumnos.edu.gt'),
+('A118', 1, 'T118', 'C001', '2024IN118', 'Kevin', 'Castillo', 'kcastillo', 'pwd118', 'kevin.castillo@alumnos.edu.gt'),
+('A119', 1, 'T119', 'C001', '2024IN119', 'Ana', 'Velásquez', 'avelasquez', 'pwd119', 'ana.velasquez@alumnos.edu.gt'),
+('A120', 1, 'T120', 'C001', '2024IN120', 'Esteban', 'Lara', 'elara', 'pwd120', 'esteban.lara@alumnos.edu.gt');
+INSERT INTO Persona (
+    Código_Persona, Código_Rol, Codigo_ticket, Código_Carrera,
+    Carnet_Persona, Nombres_Persona, Apellidos_Persona,
+    Usuario_Persona, Password_Persona, Correo_Persona
+) VALUES
+('A121', 1, 'T121', 'C001', '2024IN121', 'Pamela', 'Córdoba', 'pcordova', 'pwd121', 'pamela.cordoba@alumnos.edu.gt'),
+('A122', 1, 'T122', 'C001', '2024IN122', 'Arturo', 'Reyes', 'areyes', 'pwd122', 'arturo.reyes@alumnos.edu.gt'),
+('A123', 1, 'T123', 'C001', '2024IN123', 'Ivette', 'Morales', 'imorales', 'pwd123', 'ivette.morales@alumnos.edu.gt'),
+('A124', 1, 'T124', 'C001', '2024IN124', 'Diego', 'Mendoza', 'dmendoza', 'pwd124', 'diego.mendoza@alumnos.edu.gt'),
+('A125', 1, 'T125', 'C001', '2024IN125', 'Claudia', 'Serrano', 'cserrano', 'pwd125', 'claudia.serrano@alumnos.edu.gt'),
+('A126', 1, 'T126', 'C001', '2024IN126', 'Rubén', 'Juárez', 'rjuarez', 'pwd126', 'ruben.juarez@alumnos.edu.gt'),
+('A127', 1, 'T127', 'C001', '2024IN127', 'Gabriela', 'Lemus', 'glemus', 'pwd127', 'gabriela.lemus@alumnos.edu.gt'),
+('A128', 1, 'T128', 'C001', '2024IN128', 'Fabián', 'Martínez', 'fmartinez', 'pwd128', 'fabian.martinez@alumnos.edu.gt'),
+('A129', 1, 'T129', 'C001', '2024IN129', 'María', 'Estévez', 'mestevez', 'pwd129', 'maria.estevez@alumnos.edu.gt'),
+('A130', 1, 'T130', 'C001', '2024IN130', 'Benjamín', 'Soto', 'bsoto', 'pwd130', 'benjamin.soto@alumnos.edu.gt');
+INSERT INTO Persona (
+    Código_Persona, Código_Rol, Codigo_ticket, Código_Carrera,
+    Carnet_Persona, Nombres_Persona, Apellidos_Persona,
+    Usuario_Persona, Password_Persona, Correo_Persona
+) VALUES
+('A131', 1, 'T131', 'C001', '2024IN131', 'Iván', 'Rosales', 'irosales', 'pwd131', 'ivan.rosales@alumnos.edu.gt'),
+('A132', 1, 'T132', 'C001', '2024IN132', 'Patricia', 'Zúñiga', 'pzuniga', 'pwd132', 'patricia.zuniga@alumnos.edu.gt'),
+('A133', 1, 'T133', 'C001', '2024IN133', 'Tomás', 'Delgado', 'tdelgado', 'pwd133', 'tomas.delgado@alumnos.edu.gt'),
+('A134', 1, 'T134', 'C001', '2024IN134', 'Melissa', 'Carrillo', 'mcarrillo', 'pwd134', 'melissa.carrillo@alumnos.edu.gt'),
+('A135', 1, 'T135', 'C001', '2024IN135', 'Julián', 'Cruz', 'jcruz', 'pwd135', 'julian.cruz@alumnos.edu.gt'),
+('A136', 1, 'T136', 'C001', '2024IN136', 'Daniela', 'Padilla', 'dpadilla', 'pwd136', 'daniela.padilla@alumnos.edu.gt'),
+('A137', 1, 'T137', 'C001', '2024IN137', 'Héctor', 'Salinas', 'hsalinas', 'pwd137', 'hector.salinas@alumnos.edu.gt'),
+('A138', 1, 'T138', 'C001', '2024IN138', 'Mariela', 'Pineda', 'mpineda', 'pwd138', 'mariela.pineda@alumnos.edu.gt'),
+('A139', 1, 'T139', 'C001', '2024IN139', 'Cristian', 'Barrios', 'cbarrios', 'pwd139', 'cristian.barrios@alumnos.edu.gt'),
+('A140', 1, 'T140', 'C001', '2024IN140', 'Nicole', 'Estrada', 'nestrada', 'pwd140', 'nicole.estrada@alumnos.edu.gt');
+INSERT INTO Persona VALUES
+--administracion de empresas
+('A161', 1, 'T161', 'C004', '2024AE161', 'Jimena', 'Carrillo', 'jcarrillo', 'pwd161', 'jimena.carrillo@alumnos.edu.gt'),
+('A162', 1, 'T162', 'C004', '2024AE162', 'Felipe', 'Molina', 'fmolina', 'pwd162', 'felipe.molina@alumnos.edu.gt'),
+('A163', 1, 'T163', 'C004', '2024AE163', 'Vanessa', 'Cruz', 'vcruz', 'pwd163', 'vanessa.cruz@alumnos.edu.gt'),
+('A164', 1, 'T164', 'C004', '2024AE164', 'Mario', 'León', 'mleon', 'pwd164', 'mario.leon@alumnos.edu.gt'),
+('A165', 1, 'T165', 'C004', '2024AE165', 'Patricia', 'González', 'pgonzalez', 'pwd165', 'patricia.gonzalez@alumnos.edu.gt'),
+('A166', 1, 'T166', 'C004', '2024AE166', 'Bruno', 'Castro', 'bcastro', 'pwd166', 'bruno.castro@alumnos.edu.gt'),
+('A167', 1, 'T167', 'C004', '2024AE167', 'Sofía', 'Estrada', 'sestrada', 'pwd167', 'sofia.estrada@alumnos.edu.gt'),
+('A168', 1, 'T168', 'C004', '2024AE168', 'Emilio', 'Herrera', 'eherrera', 'pwd168', 'emilio.herrera@alumnos.edu.gt'),
+('A169', 1, 'T169', 'C004', '2024AE169', 'Lucía', 'Ramírez', 'lramirez', 'pwd169', 'lucia.ramirez@alumnos.edu.gt'),
+('A170', 1, 'T170', 'C004', '2024AE170', 'Gabriel', 'Delgado', 'gdelgado', 'pwd170', 'gabriel.delgado@alumnos.edu.gt');
+INSERT INTO Persona VALUES
+('A171', 1, 'T171', 'C004', '2024AE171', 'Natalia', 'Corado', 'ncorado', 'pwd171', 'natalia.corado@alumnos.edu.gt'),
+('A172', 1, 'T172', 'C004', '2024AE172', 'Fernando', 'Zamora', 'fzamora', 'pwd172', 'fernando.zamora@alumnos.edu.gt'),
+('A173', 1, 'T173', 'C004', '2024AE173', 'Adriana', 'Pérez', 'aperez', 'pwd173', 'adriana.perez@alumnos.edu.gt'),
+('A174', 1, 'T174', 'C004', '2024AE174', 'Diego', 'Martínez', 'dmartinez', 'pwd174', 'diego.martinez@alumnos.edu.gt'),
+('A175', 1, 'T175', 'C004', '2024AE175', 'Rocío', 'Ortega', 'rortega', 'pwd175', 'rocio.ortega@alumnos.edu.gt'),
+('A176', 1, 'T176', 'C004', '2024AE176', 'Javier', 'López', 'jlopez', 'pwd176', 'javier.lopez@alumnos.edu.gt'),
+('A177', 1, 'T177', 'C004', '2024AE177', 'Alejandra', 'Salinas', 'asalinas', 'pwd177', 'alejandra.salinas@alumnos.edu.gt'),
+('A178', 1, 'T178', 'C004', '2024AE178', 'Luis', 'Cabrera', 'lcabrera', 'pwd178', 'luis.cabrera@alumnos.edu.gt'),
+('A179', 1, 'T179', 'C004', '2024AE179', 'Carolina', 'Flores', 'cflores', 'pwd179', 'carolina.flores@alumnos.edu.gt'),
+('A180', 1, 'T180', 'C004', '2024AE180', 'Iván', 'Sosa', 'isosa', 'pwd180', 'ivan.sosa@alumnos.edu.gt');
+INSERT INTO Persona VALUES
+('A181', 1, 'T181', 'C004', '2024AE181', 'Paola', 'García', 'pgarcia', 'pwd181', 'paola.garcia@alumnos.edu.gt'),
+('A182', 1, 'T182', 'C004', '2024AE182', 'Kevin', 'Juárez', 'kjuarez', 'pwd182', 'kevin.juarez@alumnos.edu.gt'),
+('A183', 1, 'T183', 'C004', '2024AE183', 'Claudia', 'Lemus', 'clemus', 'pwd183', 'claudia.lemus@alumnos.edu.gt'),
+('A184', 1, 'T184', 'C004', '2024AE184', 'Rodrigo', 'Ramírez', 'rramirez', 'pwd184', 'rodrigo.ramirez@alumnos.edu.gt'),
+('A185', 1, 'T185', 'C004', '2024AE185', 'Fátima', 'Carrillo', 'fcarrillo', 'pwd185', 'fatima.carrillo@alumnos.edu.gt'),
+('A186', 1, 'T186', 'C004', '2024AE186', 'Mariano', 'Delgado', 'mdelgado', 'pwd186', 'mariano.delgado@alumnos.edu.gt'),
+('A187', 1, 'T187', 'C004', '2024AE187', 'Cecilia', 'Reyes', 'creyes', 'pwd187', 'cecilia.reyes@alumnos.edu.gt'),
+('A188', 1, 'T188', 'C004', '2024AE188', 'Tomás', 'Barrios', 'tbarrios', 'pwd188', 'tomas.barrios@alumnos.edu.gt'),
+('A189', 1, 'T189', 'C004', '2024AE189', 'Camila', 'Soto', 'csoto', 'pwd189', 'camila.soto@alumnos.edu.gt'),
+('A190', 1, 'T190', 'C004', '2024AE190', 'Esteban', 'Pineda', 'epineda', 'pwd190', 'esteban.pineda@alumnos.edu.gt');
+INSERT INTO Persona VALUES
+('A191', 1, 'T191', 'C004', '2024AE191', 'María', 'Estrada', 'mestrada', 'pwd191', 'maria.estrada@alumnos.edu.gt'),
+('A192', 1, 'T192', 'C004', '2024AE192', 'Carlos', 'Juárez', 'cjuarez', 'pwd192', 'carlos.juarez@alumnos.edu.gt'),
+('A193', 1, 'T193', 'C004', '2024AE193', 'Julieta', 'Sánchez', 'jsanchez', 'pwd193', 'julieta.sanchez@alumnos.edu.gt'),
+('A194', 1, 'T194', 'C004', '2024AE194', 'Ramón', 'Córdova', 'rcordova', 'pwd194', 'ramon.cordova@alumnos.edu.gt'),
+('A195', 1, 'T195', 'C004', '2024AE195', 'Silvia', 'Mejía', 'smejia', 'pwd195', 'silvia.mejia@alumnos.edu.gt'),
+('A196', 1, 'T196', 'C004', '2024AE196', 'Erick', 'Gómez', 'egomez', 'pwd196', 'erick.gomez@alumnos.edu.gt'),
+('A197', 1, 'T197', 'C004', '2024AE197', 'Ximena', 'Herrera', 'xherrera', 'pwd197', 'ximena.herrera@alumnos.edu.gt'),
+('A198', 1, 'T198', 'C004', '2024AE198', 'Luis', 'Rosales', 'lrosales', 'pwd198', 'luis.rosales@alumnos.edu.gt'),
+('A199', 1, 'T199', 'C004', '2024AE199', 'Marcos', 'Castañeda', 'mcastaneda', 'pwd199', 'marcos.castaneda@alumnos.edu.gt'),
+('A200', 1, 'T200', 'C004', '2024AE200', 'Valentina', 'Sánchez', 'vsanchez', 'pwd200', 'valentina.sanchez@alumnos.edu.gt');
+-- ========================
+--  TIPO DE CONGRESO
+-- ========================
+INSERT INTO TipoCongreso (Codigo_TipoCongreso, Nombre_Congreso) VALUES
+
+('TECNOLOGICO', 'Congreso Tecnológico'),
+('CIENTIFICO', 'Congreso Científico'),
+('EMPRENDIMIENTO', 'Congreso de Emprendimiento');
+-- ========================
+--  CONGRESO
+-- ========================
+INSERT INTO Congreso (Código_Congreso, Codigo_TipoCongreso, Fecha_Congreso, Descripción_Congreso, Lugar_Congreso, Logo_Congreso, Estado_Congreso, Código_Ciclo) VALUES
+('CG001', 'TC01', '2024-08-01', 'Congreso de Innovación', 'Campus Central', 0x0, 1, 202401),
+('CG002', 'TC02', '2024-11-15', 'Congreso Internacional de Educación', 'Auditorio Nacional', 0x0, 1, 202402);
+
+-- ========================
+--  ABREVIATURAS
+-- ========================
+INSERT INTO Abreviatura (Código_Abreviatura, Abreviatura) VALUES
+(1, 'Ing.'),
+(2, 'Lic.');
+
+-- ========================
+--  CONGRESISTAS
+-- ========================
+INSERT INTO Congresista (Código_Congresista, Código_Abreviatura, Nombres_Congresista, Apellidos_Congresista, Foto_Congresista) VALUES
+('CO001', 1, 'Carlos', 'Reyes', 0x0),
+('CO002', 2, 'Marta', 'Estrada', 0x0);
+
+-- ========================
+--  EXPOSICIONES
+-- ========================
+INSERT INTO Exposición (Código_Exposición, Código_Congresista, Código_Congreso, Nombre_Exposición, Fecha_Exposición, Sala_Exposicion, Estado_Exposición) VALUES
+('EX001', 'CO001', 'CG001', 'Tecnología y Futuro', '2024-08-01', 'Sala A', 1),
+('EX002', 'CO002', 'CG002', 'Educación Global', '2024-11-15', 'Sala B', 1);
+
+-- ========================
+--  ASISTENCIAS
+-- ========================
+INSERT INTO Asistencia (Código_Asistencia, Código_Exposición, Código_Persona, Estado_Asistencia, Hora_Asistencia) VALUES
+('AS001', 'EX001', 'PR001', 1, DEFAULT),
+('AS002', 'EX002', 'PR002', 1, DEFAULT);
+
+
+-- ========================
+-- ASIGNACIÓN DE CURSOS
+-- ========================
+INSERT INTO AsignacionCurso (Codigo_Asignacion, Código_Persona, Codigo_DetallePensum, Código_Ciclo) VALUES
+('AC001', 'PR001', 'DP001', 202401),
+('AC002', 'PR001', 'DP002', 202401),
+('AC003', 'PR002', 'DP003', 202402),
+('AC004', 'PR003', 'DP004', 202401);
+INSERT INTO Exposición VALUES
+('EXP001', 'CG001', 'CONG001', 'Computación Cuántica', '2025-08-10', 'Sala 1', 1),
+('EXP002', 'CG002', 'CONG001', 'Redes Inteligentes', '2025-08-10', 'Sala 2', 1),
+('EXP003', 'CG003', 'CONG002', 'Ciencia de Datos', '2025-09-05', 'Sala A', 1);
+INSERT INTO Ticket
+SELECT RIGHT('T' + CAST(ROW_NUMBER() OVER (ORDER BY Código_Persona) AS VARCHAR), 3),
+       'Ticket válido',
+       1,
+       GETDATE()
+FROM Persona;
+--asignacioncurso
+INSERT INTO AsignacionCurso VALUES
+('AS001', 'A001', 'DP001', 202401),
+('AS002', 'A002', 'DP002', 202401),
+('AS003', 'A003', 'DP003', 202401),
+('AS004', 'A004', 'DP004', 202401),
+('AS005', 'A005', 'DP005', 202401),
+('AS006', 'A006', 'DP006', 202401),
+('AS007', 'A007', 'DP007', 202401),
+('AS008', 'A008', 'DP008', 202401),
+('AS009', 'A009', 'DP009', 202401),
+('AS010', 'A010', 'DP010', 202401),
+('AS011', 'A011', 'DP001', 202401),
+('AS012', 'A012', 'DP002', 202401),
+('AS013', 'A013', 'DP003', 202401),
+('AS014', 'A014', 'DP004', 202401),
+('AS015', 'A015', 'DP005', 202401),
+('AS016', 'A016', 'DP006', 202401),
+('AS017', 'A017', 'DP007', 202401),
+('AS018', 'A018', 'DP008', 202401),
+('AS019', 'A019', 'DP009', 202401),
+('AS020', 'A020', 'DP010', 202401),
+-- Continúa hasta AS050
+('AS021', 'A021', 'DP001', 202501),
+('AS022', 'A022', 'DP002', 202501),
+('AS023', 'A023', 'DP003', 202501),
+('AS024', 'A024', 'DP004', 202501),
+('AS025', 'A025', 'DP005', 202501),
+('AS026', 'A026', 'DP006', 202501),
+('AS027', 'A027', 'DP007', 202501),
+('AS028', 'A028', 'DP008', 202501),
+('AS029', 'A029', 'DP009', 202501),
+('AS030', 'A030', 'DP010', 202501),
+('AS031', 'A031', 'DP001', 202501),
+('AS032', 'A032', 'DP002', 202501),
+('AS033', 'A033', 'DP003', 202501),
+('AS034', 'A034', 'DP004', 202501),
+('AS035', 'A035', 'DP005', 202501),
+('AS036', 'A036', 'DP006', 202501),
+('AS037', 'A037', 'DP007', 202501),
+('AS038', 'A038', 'DP008', 202501),
+('AS039', 'A039', 'DP009', 202501),
+('AS040', 'A040', 'DP010', 202501),
+('AS041', 'A041', 'DP001', 202501),
+('AS042', 'A042', 'DP002', 202501),
+('AS043', 'A043', 'DP003', 202501),
+('AS044', 'A044', 'DP004', 202501),
+('AS045', 'A045', 'DP005', 202501),
+('AS046', 'A046', 'DP006', 202501),
+('AS047', 'A047', 'DP007', 202501),
+('AS048', 'A048', 'DP008', 202501),
+('AS049', 'A049', 'DP009', 202501),
+('AS050', 'A050', 'DP010', 202501);
+-- Asistencia
+INSERT INTO Asistencia VALUES
+('AT001', 'EXP001', 'A001', 1, DEFAULT),
+('AT002', 'EXP002', 'A002', 1, DEFAULT),
+('AT003', 'EXP003', 'A003', 1, DEFAULT),
+('AT004', 'EXP001', 'A004', 1, DEFAULT),
+('AT005', 'EXP002', 'A005', 1, DEFAULT),
+('AT006', 'EXP003', 'A006', 1, DEFAULT),
+('AT007', 'EXP001', 'A007', 1, DEFAULT),
+('AT008', 'EXP002', 'A008', 1, DEFAULT),
+('AT009', 'EXP003', 'A009', 1, DEFAULT),
+('AT010', 'EXP001', 'A010', 1, DEFAULT),
+-- Continúa hasta AT050 con variación
+('AT011', 'EXP002', 'A011', 1, DEFAULT),
+('AT012', 'EXP003', 'A012', 1, DEFAULT),
+('AT013', 'EXP001', 'A013', 1, DEFAULT),
+('AT014', 'EXP002', 'A014', 1, DEFAULT),
+('AT015', 'EXP003', 'A015', 1, DEFAULT),
+('AT016', 'EXP001', 'A016', 1, DEFAULT),
+('AT017', 'EXP002', 'A017', 1, DEFAULT),
+('AT018', 'EXP003', 'A018', 1, DEFAULT),
+('AT019', 'EXP001', 'A019', 1, DEFAULT),
+('AT020', 'EXP002', 'A020', 1, DEFAULT);
